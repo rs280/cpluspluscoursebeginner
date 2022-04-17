@@ -35,7 +35,7 @@ int main(){
 
     //When you change the value, the old value is gone forever
     // one variable can hold only one value at a time
-    // if you want to keep track of multiple values, you need to use many variables
+    // if you want to keep traodeck of multiple values, you need to use many variables
     int oldQuantity = quantity;
     quantity = 30;
 
