@@ -3,16 +3,16 @@ using namespace std;
 
 int main(){
     cout << "Please enter the character for triangle: ";
-    char triangle;
+    string triangle;
     cin >> triangle;
     cout << "Please enter the character for square: ";
-    char square;
+    string square;
     cin >> square;
     cout << "Please enter the character for rectangle: ";
-    char rectangle;
+    string rectangle;
     cin >> rectangle;
     cout << "Please enter the character for diamond: ";
-    char diamond;
+    string diamond;
     cin >> diamond;
     cout << "How many shapes do you want to print? ";
     int num;
@@ -28,18 +28,43 @@ int main(){
         for (int i=1; i<=num; i++){
             if (i==1){
                 cout << "Triangle: " << endl;
-                cout <<"     "<< triangle << endl;
-                cout <<"    "<< triangle+triangle+triangle << endl;
-                cout <<"   "<< triangle+triangle+triangle+triangle+triangle << endl;    
+                int e = 1;
+                for(int a=1;a<=3;a++)
+                    {
+                     for(int b=4;b>=a;b--)
+                    {
+                        cout<<" ";  // Printing Space Here
+                    }
+                 for(int c=0;c<e;c++)
+                 {
+                    cout<<triangle;  // Printing the chosen character here
+                }
+                 cout<<endl;   // new line
+                 e=e+2;
+                    }
             }
             else if (i==2){
-                cout << "Square" << endl;
+                cout << "Square: " << endl;
+                cout<<" "+square+square+square<<endl;
+                cout<<" "+square+" "+square<<endl;
+                cout<<" "+square+square+square<<endl;
+                
+                
+
             }
             else if (i==3){
-                cout << "Rectangle" << endl;
+                cout << "Rectangle: " << endl;
+                cout<<rectangle+rectangle+rectangle+rectangle+rectangle<<endl;
+                cout<<rectangle+"   "+rectangle<<endl;
+                cout<<rectangle+rectangle+rectangle+rectangle+rectangle<<endl;
             }
             else if (i==4){
-                cout << "Diamond" << endl;
+                cout << "Diamond: " << endl;
+                cout<<" "+diamond+" "<<endl;
+                cout<<diamond+" "+diamond<<endl;
+                cout<<" "+diamond+" "<<endl;
+                
+
             }
         }
     }
