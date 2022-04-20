@@ -5,6 +5,9 @@
         "ostream": "cpp",
         "iostream": "cpp",
         "istream": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "ios": "cpp",
+        "memory": "cpp",
+        "utility": "cpp"
     }
 }
