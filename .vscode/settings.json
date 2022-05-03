@@ -8,6 +8,9 @@
         "string": "cpp",
         "ios": "cpp",
         "memory": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "__tuple": "cpp",
+        "tuple": "cpp",
+        "vector": "cpp"
     }
 }
