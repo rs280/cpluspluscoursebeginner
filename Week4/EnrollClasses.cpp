@@ -74,7 +74,14 @@ int main(){
     do
     {
          option = menu() ;
-         processMenuOption( option ) ;
+         switch ( option ) 
+    {
+             case 1: enroll(); break ;
+             case 2: summarize(string name, int ID, int numofClasses, int numofCredits, int numofFee); break ;
+             case 3: detail(); break;
+             case 4: break ;
+             default: errorOption() ;
+    }
     } while (option != 4) ;
     
     return 0;
