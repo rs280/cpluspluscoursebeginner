@@ -23,28 +23,34 @@ void errorOption()
 void enroll(){
 
 }
-void processMenuOption(int option)
-{
-    // int temp = 1 ;  // declare local variable and initialize explicitly
-    switch ( option ) 
-    {
-             case 1: enroll(); break ;
-             case 2: break ;
-             case 3: break;
-             case 4: break ;
-             default: errorOption() ;
-    }
+void summarize(string name, int ID, int numofClasses, int numofCredits, int numofFee){
+    cout << "======================================"<< endl ;
+    cout << "Name: " << name << endl
+         << "ID: " << ID << endl
+         << "Total classes: " << numofClasses << "\n" 
+         << "Total credits: " << numofCredits << "\n"
+         << "Total fee: " << numofFee  << "\n"
+         << "======================================"<< endl ;
+}
+
+
+void detail(){
+
 }
 
 
 
+
 int main(){
+    int numofClasses = 0 ;
+    int classFee=0;
+    int totalUnits=0;
     string name = "";
     do{
         cout << "Please enter the student's name: ";
        if(cin.get() == '\n')
         {
-                cout<<"Student name cannot be empty or has only blanks.";
+                cout<<"Student name cannot be empty or has only blanks." << endl;
             }
     } while ((cin.get() == '\n'));
     int ID;
