@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 
+
 void displayMenu(){
       cout << "Menu: " << endl 
          << "1. enroll " << endl 
@@ -20,21 +21,36 @@ void errorOption()
 {
     cout << "Unsupported menu option" << endl ;
 }
-void enroll(){
+void enroll(string detail){
+    cout << "Please enter the class name: ";
+    string className;
+    cin >> className;
+    cout << "Please enter the number of units for this class: ";
+    int units;
+    cin >> units;
+    detail = className + " " + to_string(units);
+
 
 }
-void summarize(string name, int ID, int numofClasses, int numofCredits, int numofFee){
+void summarize(string name, int ID, int numofClasses, int numofCredits){
     cout << "======================================"<< endl ;
+    cout << "Name: " << name << endl
+         << "ID: " << ID << endl
+         << "Total classes: " << numofClasses << "\n" 
+         << "Total credits: " << numofCredits << "\n"
+         << "Total fee: $" << numofCredits*31.00  << "\n"
+         << "======================================"<< endl ;
+}
+
+
+void detail(string name, int ID, int numofClasses, int numofCredits, int numofFee, string detail){
+     cout << "======================================"<< endl ;
     cout << "Name: " << name << endl
          << "ID: " << ID << endl
          << "Total classes: " << numofClasses << "\n" 
          << "Total credits: " << numofCredits << "\n"
          << "Total fee: " << numofFee  << "\n"
          << "======================================"<< endl ;
-}
-
-
-void detail(){
 
 }
 
@@ -43,20 +59,24 @@ void detail(){
 
 int main(){
     int numofClasses = 0 ;
-    int classFee=0;
+    int className;
     int totalUnits=0;
+    int numofCredits=0;
+ 
     string name = "";
+    string details="";
+
     do{
         cout << "Please enter the student's name: ";
-       if(cin.get() == '\n')
-        {
-                cout<<"Student name cannot be empty or has only blanks." << endl;
-            }
-    } while ((cin.get() == '\n'));
+        getline(cin,name);
+        if (name.empty()==true){
+            cout << "Student name cannot be empty or has only blanks." << endl ;
+        }
+    } while(name.empty()==true);
+    
     int ID;
     do{
-        cin.clear();
-        cin.ignore(INT_MAX,'\n');
+        
         cout << "Please enter the student's ID: ";
         cin >> ID;
         if (cin.fail()==true){
@@ -66,6 +86,8 @@ int main(){
             cin.ignore(INT_MAX,'\n');
             cout << "ID: ";
             cin >> ID;
+            cin.clear();
+            cin.ignore(INT_MAX,'\n');
         }
         else if (ID<=0){
             cout << "Invalid student id. Please try again." << endl;
@@ -73,6 +95,8 @@ int main(){
             cin.ignore(INT_MAX, '\n');
             cout << "ID: ";
             cin >> ID;
+            cin.clear();
+            cin.ignore(INT_MAX, '\n');
         }
 
     } while ((ID<=0)||(cin.fail()==true));
@@ -82,8 +106,8 @@ int main(){
          option = menu() ;
          switch ( option ) 
     {
-             case 1: enroll(); break ;
-             case 2: summarize(string name, int ID, int numofClasses, int numofCredits, int numofFee); break ;
+             case 1: enroll(details); break ;
+             case 2: summarize( name, ID,  numofClasses, numofCredits,  details); break ;
              case 3: detail(); break;
              case 4: break ;
              default: errorOption() ;
