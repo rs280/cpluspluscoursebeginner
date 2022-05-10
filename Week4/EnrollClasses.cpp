@@ -1,7 +1,28 @@
 #include <iostream>
+#include <sstream>  
+#include <iomanip>
 using namespace std;
 
-
+void tokenize(string s, string del = " ")
+{
+    int start = 0;
+    int end = s.find(del);
+    for(int i =1; end!= -1; i++) {
+        
+        if (i % 2 == 0){
+            cout << "Units: " << s.substr(start, end - start) << endl;
+            
+        }
+        else{
+            cout << "Class: " << s.substr(start, end - start) << "         ";
+            
+        }
+        
+        start = end + del.size();
+        end = s.find(del, start);
+    }
+   
+}
 void displayMenu(){
       cout << "Menu: " << endl 
          << "1. enroll " << endl 
@@ -21,35 +42,48 @@ void errorOption()
 {
     cout << "Unsupported menu option" << endl ;
 }
-void enroll(string detail){
+void enroll(int &numofClasses, int &numofUnits, string &detail){
+    cin.clear();
+    cin.ignore();
     cout << "Please enter the class name: ";
     string className;
-    cin >> className;
+    getline(cin, className);
+    
+    numofClasses = numofClasses + 1;
+     cin.clear();
+    cin.ignore(INT_MAX,'\n');
     cout << "Please enter the number of units for this class: ";
     int units;
+     
     cin >> units;
-    detail = className + " " + to_string(units);
-
+    numofUnits= numofUnits + units;
+    cin.clear();
+    cin.ignore(INT_MAX,'\n');
+    detail = detail + className + "," + to_string(units) + ",";
+    
 
 }
-void summarize(string name, int ID, int numofClasses, int numofCredits){
+void summarize(string &name, int &ID, int &numofClasses, int &numofCredits){
+   double fee= numofCredits*31.00;
     cout << "======================================"<< endl ;
     cout << "Name: " << name << endl
          << "ID: " << ID << endl
          << "Total classes: " << numofClasses << "\n" 
          << "Total credits: " << numofCredits << "\n"
-         << "Total fee: $" << numofCredits*31.00  << "\n"
+       < "Total fee: $" << fee  << "\n"
          << "======================================"<< endl ;
 }
 
 
-void detail(string name, int ID, int numofClasses, int numofCredits, int numofFee, string detail){
+void detail(string &name, int &ID, int &numofClasses, int &numofCredits, string &detailss){
+      double fee= numofCredits*31;
      cout << "======================================"<< endl ;
-    cout << "Name: " << name << endl
-         << "ID: " << ID << endl
-         << "Total classes: " << numofClasses << "\n" 
+    cout << "Name: " << name << endl 
+         << "ID: " << ID << endl; 
+        tokenize(detailss, ",");
+        cout << "Total classes: " << numofClasses << "\n" 
          << "Total credits: " << numofCredits << "\n"
-         << "Total fee: " << numofFee  << "\n"
+         << "Total fee: $"  << fee << "\n"
          << "======================================"<< endl ;
 
 }
@@ -61,11 +95,10 @@ int main(){
     int numofClasses = 0 ;
     int className;
     int totalUnits=0;
-    int numofCredits=0;
+   
  
     string name = "";
     string details="";
-
     do{
         cout << "Please enter the student's name: ";
         getline(cin,name);
@@ -106,9 +139,9 @@ int main(){
          option = menu() ;
          switch ( option ) 
     {
-             case 1: enroll(details); break ;
-             case 2: summarize( name, ID,  numofClasses, numofCredits,  details); break ;
-             case 3: detail(); break;
+             case 1: enroll(numofClasses, totalUnits, details);  break ;
+             case 2:  summarize( name, ID,  numofClasses, totalUnits); break ;
+             case 3: detail( name, ID,  numofClasses, totalUnits,  details); break;
              case 4: break ;
              default: errorOption() ;
     }
