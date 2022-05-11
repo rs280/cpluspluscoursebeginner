@@ -1,8 +1,16 @@
 #include <iostream>
 #include <sstream>  
 #include <iomanip>
+#include <string>
 using namespace std;
 
+bool isWhitespace(string s){
+    for(int index = 0; index < s.length(); index++){
+        if(!isspace(s[index]))
+            return false;
+    }
+    return true;
+}
 void tokenize(string s, string del = " ")
 {
     int start = 0;
@@ -42,7 +50,7 @@ void errorOption()
 {
     cout << "Unsupported menu option" << endl ;
 }
-void enroll(int &numofClasses, int &numofUnits, string &detail){
+void enroll(int &numofClasses, double &numofUnits, string &detail){
     cin.clear();
     cin.ignore();
     cout << "Please enter the class name: ";
@@ -63,19 +71,19 @@ void enroll(int &numofClasses, int &numofUnits, string &detail){
     
 
 }
-void summarize(string &name, int &ID, int &numofClasses, int &numofCredits){
+void summarize(string &name, int &ID, int &numofClasses, double &numofCredits){
    double fee= numofCredits*31.00;
     cout << "======================================"<< endl ;
     cout << "Name: " << name << endl
          << "ID: " << ID << endl
          << "Total classes: " << numofClasses << "\n" 
          << "Total credits: " << numofCredits << "\n"
-       < "Total fee: $" << fee  << "\n"
+         << "Total fee: $" << fee  <<".00 " << "\n"
          << "======================================"<< endl ;
 }
 
 
-void detail(string &name, int &ID, int &numofClasses, int &numofCredits, string &detailss){
+void detail(string &name, int &ID, int &numofClasses, double &numofCredits, string &detailss){
       double fee= numofCredits*31;
      cout << "======================================"<< endl ;
     cout << "Name: " << name << endl 
@@ -83,7 +91,7 @@ void detail(string &name, int &ID, int &numofClasses, int &numofCredits, string 
         tokenize(detailss, ",");
         cout << "Total classes: " << numofClasses << "\n" 
          << "Total credits: " << numofCredits << "\n"
-         << "Total fee: $"  << fee << "\n"
+         << "Total fee: $"  << fee <<".00 " << "\n"
          << "======================================"<< endl ;
 
 }
@@ -94,7 +102,7 @@ void detail(string &name, int &ID, int &numofClasses, int &numofCredits, string 
 int main(){
     int numofClasses = 0 ;
     int className;
-    int totalUnits=0;
+    double totalUnits=0;
    
  
     string name = "";
@@ -102,10 +110,15 @@ int main(){
     do{
         cout << "Please enter the student's name: ";
         getline(cin,name);
-        if (name.empty()==true){
+        if (name.empty()){
             cout << "Student name cannot be empty or has only blanks." << endl ;
         }
-    } while(name.empty()==true);
+        else if(isWhitespace(name)){
+            cout << "Student name cannot be empty or has only blanks." << endl ;
+        }
+        
+        
+    } while((name.empty())||(isWhitespace(name)));
     
     int ID;
     do{

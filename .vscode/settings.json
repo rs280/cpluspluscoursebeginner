@@ -12,6 +12,7 @@
         "__tuple": "cpp",
         "tuple": "cpp",
         "vector": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "__locale": "cpp"
     }
 }
