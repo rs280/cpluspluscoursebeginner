@@ -1,11 +1,12 @@
 #include <iostream>
 using namespace std;
 
-pair <bool,int> isTheLastNumberTheMax(int test[]){
-    int max = test[test.length()-1];
+pair <bool,int> isTheLastNumberTheMax(int arr[], int len){
+    
+    int max = arr[len];
     int count = 0;
-    for (int i = 0; i < test.length(); i++){
-        if(test[i]==max){
+    for (int i = 0; i < len; i++){
+        if(arr[i]==max){
             count++;
         }
     }
@@ -16,11 +17,41 @@ pair <bool,int> isTheLastNumberTheMax(int test[]){
         return make_pair(true,count);
     }
 }
+void changeCase( char array[], bool toUpper, int len){
+    if (array[len] != '\0'){
+        cout << "Error: array is not terminated" << endl;
+    }
+    else if (array[len] == '\0') {
+
+    for (int i = 0; i < strlen(array); i++){
+        if(toUpper){
+            array[i] = toupper(array[i]);
+        }
+        else{
+            array[i] = tolower(array[i]);
+        }
+    }
+    }
+}
 int main()
-  {  int arr[] = {50, 10, 20, 30, 40, 50};
-    pair <bool,int> result = isTheLastNumberTheMax(arr);
-    if(result.first){
-        cout<<"The last number is the max."<<endl; }
+  {  int arr[] = {50, 10, 20, 30, 50, 50, 50};
+   int len = (sizeof(arr)/sizeof(arr[0]))-1;
+    pair <bool,int> result = isTheLastNumberTheMax(arr, len);
+    if(result.first == true){
+        cout<< "There are "<<result.second << " numbers identical to the max."<<endl; }
+    else if(result.first == false){
+        cout<< "There are no numbers identical to the max."<<endl; }
+    char test[] = {'H', 'e', 'l', 'l', 'o', '\0'} ;
+    len = (sizeof(test)/sizeof(test[0]))-1;
+    changeCase(test, true, len);
+    cout << test << endl;
+    char test1[] = {'H', 'e', 'l', 'l', 'o'} ;
+    len = (sizeof(test1)/sizeof(test1[0]))-1;
+    changeCase(test1, false, len);
+    char test2[] = {'H', 'e', 'l', 'l', 'o', '\0'} ;
+    len = (sizeof(test2)/sizeof(test2[0]))-1;
+    changeCase(test2, false, len);
+    cout << test2 << endl;
     return 0;
   }
 
