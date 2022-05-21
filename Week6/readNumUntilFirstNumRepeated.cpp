@@ -19,7 +19,7 @@ void readNumUntilFirstNumRepeated( int &count, int &max){
 int main(){
     int count = 0;
     int max = 0;
-    readNumUntilFirstNumRepeated(count, max);
+    readNumUntilFirstNumRepeated(count, max); 
     cout << "Count: " << count << endl;
     cout << "Value of the first number: " << max << endl;
     
