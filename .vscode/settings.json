@@ -23,6 +23,7 @@
         "bitset": "cpp",
         "initializer_list": "cpp",
         "iterator": "cpp",
-        "unordered_map": "cpp"
+        "unordered_map": "cpp",
+        "__bit_reference": "cpp"
     }
 }

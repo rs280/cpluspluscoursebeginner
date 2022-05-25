@@ -1,51 +1,102 @@
 #include <iostream>
+#include <iterator>
 using namespace std;
 
 
 const int MAX_NUM_OF_CLASSES = 5 ;
 const double FEE_PER_UNIT = 31.0  ;
 
-void enroll(string test[], int test2[], int size){
+void enroll(string test [], int test2[], int &size){
+  bool flag = false;
+  do {
+  
     if (size==MAX_NUM_OF_CLASSES){
         cout << "Sorry, you cannot enroll in anymore classes." << endl;
+        flag = true;
     }
+    
     cout << "Please enter the class name: ";
-    if (size==0 ){
-        getline(cin, test[0]);
-    }
-    else{
-        getline(cin, test[size+1]);
-    }
+    
+   getline(cin, test[size]);
+    
+
     cout << "Please enter the number of units for this class: ";
-    if (size==0 ){
-        cin >> test2[0];
-    }
-    else{
-        cin >> test2[size+1];
-    }
+    cin >> test2[size];
+     size ++;
+     flag= true;
+        
+  } while (flag != true);
+ 
 
 }
  void detail(string test[], int test2[], int size){
      cout << "======================================" << endl;
-        for (int i =0; i<=size; i++){
+        for (int i =0; i<size; i++){
             cout << "Class name: " << test[i] <<
              "                     Units: " << test2[i] << endl;
             
         }
-        cout << "Total classes: " << size+1 << endl;
+        cout << "Total classes: " << size<< endl;
         int totalUnits = 0;
-        for (int i =0; i<=size; i++){
+        for (int i =0; i<size; i++){
             totalUnits += test2[i];
         }
         cout << "Total units: " << totalUnits << endl;
-        cout << "Total fee: " << totalUnits*FEE_PER_UNIT << endl;
-        cout << "======================================" << endl;
+        cout << "Total fee: $" << totalUnits*FEE_PER_UNIT << ".00" << endl;
+        cout << "======================================" ;
 
  }
 void search(string test[], int test2[], int size){
+    cout << "Please enter the search word: ";
+    string searchWord;
+    getline(cin, searchWord);
+    
+    cout << "======================================" << endl;
+    int nomatch = 0;
+
+    for (int i =0; i<size; i++){
+        if (test[i].find(searchWord)!=string::npos){
+            
+            cout << "Class name: " << test[i] <<
+             "                     Units: " << test2[i] << endl;
+            
+             
+        }
+        else{
+            nomatch++;
+        }
+    }
+    if (nomatch == size){
+        cout << "Search did not match any class." << endl;
+    }
+    cout << "======================================" ;
 
 }
 void units(string test[], int test2[], int size){
+    cout << "Please enter the number of units: ";
+    int searchUnits;
+    cin >> searchUnits;
+    
+    cout << "======================================" << endl;
+    int nomatch = 0;
+
+    for (int i =0; i<size; i++){
+        if (test2[i]>=searchUnits){
+            
+            cout << "Class name: " << test[i] <<
+             "                     Units: " << test2[i] << endl;
+            
+             
+        }
+        else{
+            nomatch++;
+        }
+    }
+    if (nomatch == size){
+        cout << "Search did not match any class." << endl;
+    }
+    cout << "======================================" << endl;
+
 
 }
 void help(){
@@ -55,7 +106,7 @@ void help(){
 << "search  - to search for a word in the class list\n"
 << "units>= - to search for classes with units greater and equal\n"
 << "help    - to display list of valid commands\n"
-<< "exit    - to exit the program" << endl;
+<< "exit    - to exit the program" ;
 
 }
 
@@ -63,42 +114,53 @@ void help(){
 
 
 int main(){
-    string className[] = {};
-    int classUnits[] = {};
+    string  className[] = {};
+    int  classUnits[] ={};
     int size = 0;
-
+    int times = 0;
 string option;
     
     do{
         
+         if ( times>0){
+            cin.clear();
+             cin.ignore();
+         }
+        
         cout << "Please enter a command: ";
-       
         getline(cin, option);
-     
+      
         if (option=="enroll"){
-            size = (sizeof(className)/sizeof(className[0]))-1;
+            
+            
             enroll(className, classUnits, size);
+             times++;
         }
         else if (option=="detail"){
-             size = (sizeof(className)/sizeof(className[0]))-1;
-            detail(className, classUnits, size);
+            
+              detail(className, classUnits, size);
+               times++;
         }
         else if (option=="search"){
-             size = (sizeof(className)/sizeof(className[0]))-1;
+            
             search(className, classUnits, size);
+             times++;
         }
         else if (option=="units>="){
-             size = (sizeof(className)/sizeof(className[0]))-1;
-            units(className, classUnits, size);
+            
+             units(className, classUnits, size);
+              times++;
         }
         else if (option=="help"){
-             size = (sizeof(className)/sizeof(className[0]))-1;
+            
             help();
+             times++;
         }
         else {
-             size = (sizeof(className)/sizeof(className[0]))-1;
-            cout <<"Invalid command. Please enter \"help\" for the list of valid commands."<< endl;
+            cout <<"Invalid command. Please enter \"help\" for the list of valid commands.";
+             times++;
         }
-
+    
+    
     }while(option!="exit");
 }
