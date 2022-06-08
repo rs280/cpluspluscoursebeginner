@@ -24,6 +24,7 @@
         "initializer_list": "cpp",
         "iterator": "cpp",
         "unordered_map": "cpp",
-        "__bit_reference": "cpp"
+        "__bit_reference": "cpp",
+        "iomanip": "cpp"
     }
 }
