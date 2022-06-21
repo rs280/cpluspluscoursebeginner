@@ -2,6 +2,7 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+#include <vector>
 using namespace std;
 class Transaction
 {
@@ -68,35 +69,47 @@ class Transaction
         this->pricePerShare = pricePerShare;
     }
 };
-
-int removeNegativeQuantity(vector<Transaction*>& transactions)
-{
+/*Write a function named “removeNegativeQuantity” that accepts the vector of 
+pointers to Transaction objects. It will go through that list and remove all 
+Transaction objects with the negative quantity. It will also return how many 
+Transaction objects that it has removed from the list. 
+ */
+int removeNegativeQuantity(vector<Transaction*> &transactions){
     int count = 0;
     for (int i = 0; i < transactions.size(); i++)
     {
-        if (transactions[i]->getNumOfShares() < 0)
+        if (transactions[i]->calculateTotal(*transactions[i]) < 0)
         {
             transactions.erase(transactions.begin() + i);
             count++;
+            i--;
         }
     }
     return count;
 }
 
 int main(){
-    Transaction t1;
-    t1.setStockSymbol("AAPL");
-    t1.setNumOfShares(100);
-    t1.setPricePerShare(10.00);
-    string t1Info =  t1.toString(t1);
-    Transaction t2;
-    t2.setStockSymbol("GOOG");
-    t2.setNumOfShares(200);
-    t2.setPricePerShare(20.00);
-    string t2Info =  t2.toString(t2);
-    int compare = t1.compareTotal(t2, t1) ;
-    int t1total = t1.calculateTotal(t1) ;
-    int t2Total =  t2.calculateTotal(t2);
+    vector<Transaction *>t (5,nullptr);
+    for (int i = 0; i < t.size(); i++)
+    {
+        t[i] = new Transaction();
+    }
+
+    
+    
+    t[0]->setStockSymbol("AAPL");
+    t[0]->setNumOfShares(100);
+    t[0]->setPricePerShare(-10.00);
+    t[1]->setStockSymbol("GOOG");
+    t[1]->setNumOfShares(200);
+    t[1]->setPricePerShare(-121210.00);
+    t[2]->setStockSymbol("MSFT");
+    t[2]->setNumOfShares(300);
+    t[2]->setPricePerShare(13.00);
+    int c = removeNegativeQuantity(t);
+    cout << "Removed " << c << " transactions" << endl;
+
+    cout << t[1]->getNumOfShares() << endl;
 
     return 0;
 }

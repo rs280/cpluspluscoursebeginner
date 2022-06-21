@@ -34,15 +34,13 @@ class Course
 } ;
 void enroll(vector<Course> &courses)
 {
-     bool flag = false;
-     do {
+     
         Course course;
         course.setName();
         course.setUnit();
         cout << "You are enrolled." << endl;
         courses.push_back(course);
-        flag = true;
-     } while (flag != true);
+        
 }
 
 void detail(vector<Course> &courses){
@@ -68,13 +66,21 @@ void units(vector<Course> courses){
     cin >> units;
     cout << "======================================" << endl;
     cout << "List of classes: " << endl;
+    int times = 0;
     for (int i = 0; i < courses.size(); i++)
     {
         if (courses.at(i).getUnits() >= units)
         {
+            times ++;
             cout << "Class: "<< courses.at(i).getName() << setw(40) <<"Units: "<< courses.at(i).getUnits() << endl;
         }
+
     }
+    if (times == 0)
+    {
+        cout << "Search did not match any class." << endl;
+    }
+    cout << "======================================";
 
 }
 void help(){

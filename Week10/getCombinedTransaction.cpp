@@ -99,47 +99,57 @@ Transaction createTransaction(string stockSymbol, int numOfShares, double priceP
     }
 }
 
-pair <Transaction*,int> getCombinedTransaction(Transaction* transactions, int size, string companySymbol, double costPerShare, int& numOfMatches)
+/*Write a function named “getCombinedTransaction” that accepts an array of 
+Transaction object pointers, its size, a company symbol and cost per share. It will 
+go through the list in the array and return a pointer of a new Transaction object 
+that contains the total of quantity of all the matched Transaction objects (with the 
+same company symbol and cost per share). It will return NULL if there is no 
+match. */
+
+pair <Transaction, int> getCombinedTransaction(Transaction * t[], int size, string companySymbol, double costPerShare)
 {
-    int numOfMatches=0;
-    Transaction* t = new Transaction();
-    
     int total = 0;
+    int index = 0;
     for (int i = 0; i < size; i++)
     {
-        if (transactions[i].getStockSymbol() == companySymbol && transactions[i].getPricePerShare() == costPerShare)
+        if (t[i]->getStockSymbol() == companySymbol && t[i]->getPricePerShare() == costPerShare)
         {
-            total += transactions[i].getNumOfShares();
-            numOfMatches++;
+            total += t[i]->getNumOfShares();
+            index = i;
         }
     }
     if (total == 0)
     {
-        return NULL;
+        return make_pair(Transaction(), -1);
     }
     else
     {
-        t->setStockSymbol(companySymbol);
-        t->setNumOfShares(total);
-        t->setPricePerShare(costPerShare);
-        return make_pair(t,numOfMatches);
+        Transaction t;
+        t.setStockSymbol(companySymbol);
+        t.setNumOfShares(total);
+        t.setPricePerShare(costPerShare);
+        return make_pair(t, index);
     }
 }
-int main(){
-    Transaction* transactions = new Transaction[5];
-    transactions[0] = createTransaction("AAPL", 100, 10.0);
-    transactions[1] = createTransaction("AAPL", 200, 10.0);
-    transactions[2] = createTransaction("AAPL", 300, 30.0);
-    transactions[3] = createTransaction("AAPL", 400, 30.0);
-    transactions[4] = createTransaction("AAPL", 500, 50.0);
-    Transaction* t = getCombinedTransaction(transactions, 5, "GL", 30.0);
-    if (t == NULL)
+int main()
+{
+    Transaction *t[5];
+    for (int i = 0; i < 5; i++)
     {
-        cout << "No match" << endl;
+        t[i] = new Transaction();
     }
-    else
-    {
-        cout << t->toString(*t) << endl;
-    }
-    return 0;
-}
+    t[0]->setStockSymbol("AAPL");
+    t[0]->setNumOfShares(10);
+    t[0]->setPricePerShare(100);
+    t[1]->setStockSymbol("AAPL");
+    t[1]->setNumOfShares(10);
+    t[1]->setPricePerShare(200);
+    t[2]->setStockSymbol("AAPL");
+    t[2]->setNumOfShares(30);
+    t[2]->setPricePerShare(100);
+    t[3]->setStockSymbol("AAPL");
+    t[3]->setNumOfShares(40);
+    t[3]->setPricePerShare(400);
+    pair<Transaction,int> t2 = getCombinedTransaction(t, 5, "AAPL", 100);
+    cout << t2.first.toString(t2.first) << endl;}
+    
