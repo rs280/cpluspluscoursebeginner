@@ -68,5 +68,6 @@ int main(){
     Word* w1 = createWord("School", "An educational institution");
     Word* w2 = createWord("           ","     ");
     Word* w3 = createWord("","");
+    
   
 }
